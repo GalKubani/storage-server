@@ -24,11 +24,6 @@ const userSchema= new mongoose.Schema({
     }],
 }, {timestamps:true}
 );
-userSchema.virtual('tasks',{
-    ref: 'Task',
-    localField: '_id',// relates the ref to the foreign field
-    foreignField: 'user'
-})
 userSchema.methods.generateAuthToken= async function(){
     const token= jwt.sign({_id:this._id.toString()},process.env.JWT_SECRET,{expiresIn:'6 hours'})
     this.tokens= this.tokens.concat({token});
@@ -47,20 +42,5 @@ userSchema.pre('save',async function(next){
     }
     next()
 })
-userSchema.pre('remove',async function(next){
-    await Task.deleteMany({user:this._id})
-    next()
-})
-userSchema.statics.findByCredentials= async(email,password)=>{
-    const user= await User.findOne({email})
-    if(!user){
-        throw new Error("Unable to login")
-    }
-    const isMatch= await bcrypt.compare(password,user.password)
-    if(!isMatch){
-        throw new Error("Unable to login")
-    }
-    return user;
-}
 const User= mongoose.model('User',userSchema);
 module.exports=User
