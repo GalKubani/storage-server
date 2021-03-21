@@ -20,6 +20,10 @@ const fileStorage= multerS3({
     }
 })
 
+const uploadFileToS3= multer({storage:fileStorage}).single("file");
+
+
+
 const getFileFromS3= async(req,res,next)=>{
     const Key= req.query.key
     try{    
@@ -33,10 +37,6 @@ const getFileFromS3= async(req,res,next)=>{
         console.log(err)
     }
 }
-
-
-const uploadFileToS3= multer({storage:fileStorage}).single("file");
-
 
 const deleteFileFromS3=async(req,res,next)=>{  
     const Key=req.query.key

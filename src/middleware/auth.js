@@ -17,8 +17,9 @@ const auth= async(req,res,next)=>{
         next();
     }
     catch(err){
-        res.status(400).send({
-            status:400,message:"authentication failed"
+        console.log(err)
+        res.status(500).send({
+            status:500,message:"authentication failed"
         })
     }
 }

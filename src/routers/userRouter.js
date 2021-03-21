@@ -20,11 +20,11 @@ router.post('/users/login',async(req,res)=>{
         let email=req.body.email
         const user= await User.findOne({email})
         if(!user){
-            throw new Error("Unable to login")
+            throw new Error("EMAIL_NOT_FOUND")
         }
         const isMatch= await bcrypt.compare(req.body.password,user.password)
         if(!isMatch){
-            throw new Error("Unable to login")
+            throw new Error("INVALID_PASSWORD")
         }
         const token= await user.generateAuthToken()
         res.send({user,token});

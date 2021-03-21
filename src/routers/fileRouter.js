@@ -12,6 +12,7 @@ router.post('/upload-file',auth,uploadFileToS3,async(req,res)=>{
             message:"File not uploaded"
         })
     }
+
     const file = new File({
         originalName: req.file.originalname,
         storageName:req.file.key.split("/")[1],
