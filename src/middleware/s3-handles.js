@@ -35,7 +35,7 @@ const getFileFromS3= async(req,res,next)=>{
 }
 
 
-const uploadFileToS3= multer({storage:fileStorage}).single("image");
+const uploadFileToS3= multer({storage:fileStorage}).single("file");
 
 
 const deleteFileFromS3=async(req,res,next)=>{  
