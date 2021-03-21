@@ -15,7 +15,7 @@ const fileStorage= multerS3({
         cb(null,{fieldname:file.fieldname});
     },
     key: (req,file,cb)=>{
-        const fileName= "files/"+ new Date().getTime()+"-"+file.originalname
+        const fileName= "files/"+req.user.email+"/" + new Date().getTime()+"-"+file.originalname
         cb(null,fileName)
     }
 })

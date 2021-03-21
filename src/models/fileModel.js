@@ -16,6 +16,7 @@ const fileSchema= new mongoose.Schema({
     key:{
         type:String
     },
+    user:{type: mongoose.Schema.Types.ObjectId, require:true}
 })
 
 const File= mongoose.model("File",fileSchema)

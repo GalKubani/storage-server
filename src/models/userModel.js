@@ -24,6 +24,11 @@ const userSchema= new mongoose.Schema({
     }],
 }, {timestamps:true}
 );
+userSchema.virtual('files',{
+    ref: 'File',
+    localField: '_id',// relates the ref to the foreign field
+    foreignField: 'user'
+})
 userSchema.methods.generateAuthToken= async function(){
     const token= jwt.sign({_id:this._id.toString()},process.env.JWT_SECRET,{expiresIn:'6 hours'})
     this.tokens= this.tokens.concat({token});
