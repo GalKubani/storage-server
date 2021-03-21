@@ -31,7 +31,7 @@ router.post('/upload-file',auth,uploadFileToS3,async(req,res)=>{
 
 router.get('/get-files',auth,async(req,res)=>{
     try{
-        const files= await File.find({})
+        const files= await File.find({user:req.user})
         res.send(files)
     }catch(err){
         console.log(err)
