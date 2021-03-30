@@ -31,6 +31,7 @@ const getFileFromS3= async(req,res,next)=>{
             Bucket:bucket
         }).promise();
         req.fileBuffer=Body
+       
         next()
     }catch(err){
         console.log(err)
