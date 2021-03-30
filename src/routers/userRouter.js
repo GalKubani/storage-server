@@ -22,14 +22,16 @@ router.post('/users/login',async(req,res)=>{
         if(!user){
             throw new Error("EMAIL_NOT_FOUND")
         }
-        const isMatch= await bcrypt.compare(req.body.password,user.password)
+        const isMatch= await bcrypt.compare(req.body.password,user.password)      
         if(!isMatch){
             throw new Error("INVALID_PASSWORD")
         }
         const token= await user.generateAuthToken()
         res.send({user,token});
-    }catch(error){
-        res.status(400).send(error)
+    }catch(err){
+        console.log(err?.message)
+        if (err.message==="EMAIL_NOT_FOUND") res.status(404).send(err.message)
+        else res.status(400).send('INVALID_PASSWORD')
     }
 })
 router.post('/users/logout',auth,async(req,res)=>{
