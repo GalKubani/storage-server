@@ -44,7 +44,7 @@ router.get('/get-file',getFileFromS3,async(req,res)=>{
     const stream=Readable.from(req.fileBuffer)
     res.setHeader(
         'Content-Disposition',
-        'attachment; file;name-' + fileName
+        'attachment; filename=' + fileName
     );
     stream.pipe(res)
 })
